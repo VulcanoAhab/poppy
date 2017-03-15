@@ -1,2 +1,5 @@
 Install OPENCV
 OPTIONS: opencv --with-config --with-ffmpeg
+
+Compile Args
+$(pkg-config --cflags --libs opencv)
