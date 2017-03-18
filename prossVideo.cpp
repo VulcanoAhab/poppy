@@ -1,46 +1,17 @@
 #include <iostream>
+#include "picHistos.h"
 
-
-#include <opencv2/core/core.hpp>
-#include <opencv2/highgui/highgui.hpp>
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/video/video.hpp"
-
-
-using namespace cv;
-using namespace std;
-
-
-double getPSNR(const Mat& I1, const Mat& I2) {
-
-  //카이제곱 :: OpenCV Scene Change Detection(장면 전환 검출)
-  // prototype testing
-
-  Mat s1;
-  absdiff(I1, I2, s1); // |I1 - I2|
-  s1.convertTo(s1, CV_32F); // cannot make a square on 8 bits
-  s1 = s1.mul(s1); // |I1 - I2|^2
-  Scalar s = sum(s1); // sum elements per channel
-  double sse = s.val[0] + s.val[1] + s.val[2]; // sum channels
-
-  if (sse <= 1e-10) return 0;
-
-  double mse = sse / (double)(I1.channels() * I1.total());
-  double psnr = 10.0*log10((255 * 255) / mse);
-  return psnr;
-
-
-}
 
 void merge(const Mat &m1, Mat &result) {
   resize(result, result, Size(m1.cols,  m1.rows));
   m1.copyTo(result(Rect(0, 0, m1.cols, m1.rows)));
 }
 
+
 void processVideo(char* videoFilename) {
 
   //set values
-  double psnrV, CHANGE_DETECT_RATIO = 15.0;
+  double histComp;
   char control;
 
   //create the capture object
