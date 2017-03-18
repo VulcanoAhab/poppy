@@ -1,22 +1,8 @@
-#include "opencv2/highgui/highgui.hpp"
-#include "opencv2/imgproc/imgproc.hpp"
-#include <iostream>
-#include <stdio.h>
+
+#include "picHistos.h"
 
 
-using namespace std;
-using namespace cv;
-
-
-class Histons {
-
-  private:
-    Mat cvone;
-    Mat cvtwo;
-    int compare_method;
-
-
-    MatND parse(Mat img) {
+MatND Histons :: parse(Mat img) {
 
       Mat hsv;
       MatND hist;
@@ -39,22 +25,20 @@ class Histons {
     }
 
 
-  public:
-
-    void set_images(Mat imone, Mat imtwo){
+void Histons :: set_images(Mat imone, Mat imtwo){
       cvone=imone;
       cvtwo=imtwo;
 
     }
 
-    void load_images(string imone, string imtwo){
+void Histons :: load_images(string imone, string imtwo){
       cvone=imread(imone, 1 );
       cvtwo=imread(imtwo, 1 );
       cout << "[+] File One:" << "\t" << imone << endl;
       cout << "[+] File Two:" << "\t" << imtwo << endl;
     }
 
-    double process_images() {
+double Histons :: process_images() {
       Mat histone;
       Mat histtwo;
       compare_method=1;
@@ -65,7 +49,6 @@ class Histons {
       return compareHist( histone, histtwo, compare_method );
     }
 
-};
 
 
 int main (int argc, char* argv[]) {
