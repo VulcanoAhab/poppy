@@ -41,6 +41,12 @@ class Histons {
 
   public:
 
+    void set_images(Mat imone, Mat imtwo){
+      cvone=imone;
+      cvtwo=imtwo;
+
+    }
+
     void load_images(string imone, string imtwo){
       cvone=imread(imone, 1 );
       cvtwo=imread(imtwo, 1 );
@@ -65,5 +71,6 @@ class Histons {
 int main () {
 
   Histons hist;
+  hist.load_images('test1.jpg', 'test2.jpg')
   return 0;
 }
