@@ -68,9 +68,30 @@ class Histons {
 };
 
 
-int main () {
+int main (int argc, char* argv[]) {
 
-  Histons hist;
-  hist.load_images('test1.jpg', 'test2.jpg')
-  return 0;
+  if (argc > 1){
+
+    if (argc != 5){
+      cout << "[- FAIL -] • [ Usage: " << argv[0] << " -i1 image -i2 image ]" << endl;
+      return 0;
+    }
+
+    string im1, im2;
+
+    for (int i=0; i < argc; i++){
+      if (strcmp(argv[i], "-i1") == 0){
+        im1=argv[i+1];
+      }
+      if  (strcmp(argv[i], "-i2") == 0){
+        im2=argv[i+1];
+      }
+    }
+
+    Histons hist;
+    hist.load_images(im1, im2);
+    cout << "[+] Hist-Comp-Grade: " << hist.process_images() << endl;
+
+  }
+return 0;
 }
